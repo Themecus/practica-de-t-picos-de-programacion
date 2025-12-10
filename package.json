@@ -1,0 +1,25 @@
+{
+  "name": "practica-de-t-picos-de-programacion",
+  "version": "1.0.0",
+  "description": "practica de topicos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Themecus/practica-de-t-picos-de-programacion.git#main"
+  },
+  "author": "canache",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Themecus/practica-de-t-picos-de-programacion/issues"
+  },
+  "homepage": "https://github.com/Themecus/practica-de-t-picos-de-programacion/tree/main#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.2.1"
+  }
+}
