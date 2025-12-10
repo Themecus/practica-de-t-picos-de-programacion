@@ -18,8 +18,6 @@ const connectDB=()=>{
         MONGO_HOSTNAME,
     }=process.env
 
-//agregar metodo patch
-
     const url= `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`
 
     mongoose.connect(url).then(function(){
@@ -41,12 +39,12 @@ app.listen(port, function () {
     console.log(`Api corriendo en http://localhost:${port}!`)
 })
 
-app.get('/', (req, res)=> {
+app.get('/', (req, res)=> {//1) para saber que todo corre
     console.log('mi primer endponit')
     res.status(200).send('hola la api funciona bien Canache!')
 })
 
-app.post('/', async (req, res) => {
+app.post('/', async (req, res) => {//2) registrar usuario
     try {
        
         var data = req.body;
@@ -68,7 +66,7 @@ app.post('/', async (req, res) => {
     }
 });
 
-app.get('/usuarios', async (req, res) => {
+app.get('/usuarios', async (req, res) => {//3) Buscar usuarios
     try {
         var usuarios = await User.find().exec();
         
@@ -89,18 +87,10 @@ app.get('/usuarios', async (req, res) => {
 });
 
 
-app.patch('/usuarios/:id', async (req, res) => {
+app.patch('/usuarios/:id', async (req, res) => {//4) Modificiar usuarios
     try {
         const { id } = req.params;  // ID para localizar
         const updateData = req.body;  // datos que se cambiaran o actualizaran
-        
-        // Validar que existe usuario
-        if (Object.keys(updateData).length === 0) {
-            return res.status(400).send({
-                success: false,
-                message: "No hay datos para actualizar"
-            });
-        }
         
         // Buscar y cambiar datos
         const usuarioActualizado = await User.findByIdAndUpdate(
@@ -108,14 +98,6 @@ app.patch('/usuarios/:id', async (req, res) => {
             updateData,  
             { new: true, runValidators: true }  
         );
-        
-        // Si no existe
-        if (!usuarioActualizado) {
-            return res.status(404).send({
-                success: false,
-                message: "Usuario no encontrado"
-            });
-        }
         
         res.status(200).send({
             success: true,
